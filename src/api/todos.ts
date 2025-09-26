@@ -1,4 +1,16 @@
-export default [
+import { User } from './users';
+
+export type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+  userId: number;
+  user?: User;
+};
+
+export type NewTodo = Omit<Todo, 'id' | 'completed'>;
+
+export const todos: Todo[] = [
   {
     id: 1,
     title: 'delectus aut autem',
@@ -18,3 +30,5 @@ export default [
     userId: 4,
   },
 ];
+
+export default todos;
