@@ -1,16 +1,17 @@
-import { User } from './users';
+import type { User } from './users';
 
-export type Todo = {
+export type TodoBase = {
   id: number;
   title: string;
-  completed: boolean;
   userId: number;
-  user?: User;
+  completed: boolean;
 };
 
-export type NewTodo = Omit<Todo, 'id' | 'completed'>;
+export type Todo = TodoBase & { user: User };
 
-export const todos: Todo[] = [
+export type NewTodo = Omit<Todo, 'id' | 'completed' | 'user'>;
+
+export const todos: TodoBase[] = [
   {
     id: 1,
     title: 'delectus aut autem',

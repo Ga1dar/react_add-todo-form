@@ -17,15 +17,15 @@ export const UserInfo = ({ users, onAdd }: Props) => {
   const sanitizeTitle = (s: string) =>
     s.replace(/[^A-Za-zА-ЩЬЮЯІЇЄҐа-щьюяіїєґ0-9\s]/g, '');
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(sanitizeTitle(e.target.value));
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(sanitizeTitle(event.target.value));
     if (showTitleError) {
       setShowTitleError(false);
     }
   };
 
-  const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const v = Number(e.target.value);
+  const handleUserChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const v = Number(event.target.value);
 
     setUserId(v);
     if (showUserError) {
@@ -33,8 +33,8 @@ export const UserInfo = ({ users, onAdd }: Props) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
 
     const isTitleInvalid = title.trim() === '';
     const isUserInvalid = userId === 0;
@@ -47,7 +47,6 @@ export const UserInfo = ({ users, onAdd }: Props) => {
     }
 
     onAdd({ title: title.trim(), userId });
-
     setTitle('');
     setUserId(0);
     setShowTitleError(false);
@@ -72,9 +71,9 @@ export const UserInfo = ({ users, onAdd }: Props) => {
           <option value={0} disabled>
             Choose a user
           </option>
-          {users.map(u => (
-            <option key={u.id} value={u.id}>
-              {u.name}
+          {users.map(user => (
+            <option key={user.id} value={user.id}>
+              {user.name}
             </option>
           ))}
         </select>

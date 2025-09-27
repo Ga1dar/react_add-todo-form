@@ -8,13 +8,26 @@ import UserInfo from './components/UserInfo/UserInfo';
 import { TodoList } from './components/TodoList';
 
 export const App = () => {
-  const [todos, setTodos] = useState<Todo[]>(todosFromServer);
+  const enriched = todosFromServer.map(t => {
+    const user = users.find(u => u.id === t.userId);
+
+    return user ? { ...t, user } : { ...t, user: users[0] };
+  });
+
+  const [todos, setTodos] = useState<Todo[]>(enriched);
 
   const handleAdd = ({ title, userId }: NewTodo) => {
     setTodos(prev => {
       const maxId = prev.length ? Math.max(...prev.map(t => t.id)) : 0;
+      const user = users.find(u => u.id === userId);
+
+      if (!user) {
+        return prev;
+      }
+
       const next: Todo = {
         id: maxId + 1,
+        user,
         title,
         userId,
         completed: false,
@@ -30,7 +43,7 @@ export const App = () => {
 
       <UserInfo users={users} onAdd={handleAdd} />
 
-      <TodoList todos={todos} users={users} />
+      <TodoList todos={todos} />
     </div>
   );
 };
