@@ -1,4 +1,5 @@
 import type { Todo } from '../../api/todos';
+import { UserInfo } from '../UserInfo';
 
 type Props = {
   todo: Todo;
@@ -11,10 +12,7 @@ export const TodoInfo = ({ todo }: Props) => {
       className={`TodoInfo${todo.completed ? ' TodoInfo--completed' : ''}`}
     >
       <h2 className="TodoInfo__title">{todo.title}</h2>
-
-      <a className="UserInfo" href={`mailto:${todo.user.email}`}>
-        {todo.user.name}
-      </a>
+      {todo.user && <UserInfo user={todo.user} />}
     </article>
   );
 };

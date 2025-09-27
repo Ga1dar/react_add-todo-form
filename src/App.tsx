@@ -1,11 +1,9 @@
 import './App.scss';
 import { useState } from 'react';
-
 import users from './api/users';
 import todosFromServer, { type Todo, type NewTodo } from './api/todos';
-
-import UserInfo from './components/UserInfo/UserInfo';
 import { TodoList } from './components/TodoList';
+import AddTodoForm from './components/AddTodoForm/AddTodoForm';
 
 export const App = () => {
   const enriched = todosFromServer.map(t => {
@@ -41,7 +39,7 @@ export const App = () => {
     <div className="App">
       <h1>Add todo form</h1>
 
-      <UserInfo users={users} onAdd={handleAdd} />
+      <AddTodoForm users={users} onAdd={handleAdd} />
 
       <TodoList todos={todos} />
     </div>
